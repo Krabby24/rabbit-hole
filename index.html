@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pagina</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.lw { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; overflow: hidden; }
+.lw.active { display: flex; }
+
+#wh { position: fixed; inset: 0; z-index: 9999; display: none; background: black; }
+#wh canvas { width: 100%; height: 100%; }
+
+#l1 { background: #fff; color: #000; font-family: "Times New Roman", Times, serif; text-align: center; padding: 60px; }
+#l1 h1 { font-size: 1.1rem; font-weight: normal; margin-bottom: 16px; }
+#l1 hr { width: 180px; border: none; border-top: 1px solid #000; margin: 16px auto; }
+#l1 p { font-size: 0.875rem; color: #222; line-height: 2; }
+
+#l2 { background: #000510; color: #00ff88; font-family: "Courier New", monospace; text-align: center; padding: 40px; }
+#l2 h1 { font-size: 1.8rem; text-shadow: 0 0 20px #00ff88; animation: p 2s infinite; }
+#l2 p { margin-top: 24px; color: #00aa55; font-size: 0.85rem; line-height: 2; }
+@keyframes p { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+#l3 { background: #080808; color: #ff0055; font-family: "Courier New", monospace; text-align: center; padding: 40px; }
+#l3 h1 { font-size: 3rem; animation: gl .4s infinite; }
+#l3 p { margin-top: 20px; color: #cc0044; font-size: 0.8rem; line-height: 2.2; }
+@keyframes gl {
+  0%  { text-shadow: 3px 0 red, -3px 0 cyan; transform: translate(0); }
+  25% { text-shadow: -3px 0 red, 3px 0 cyan; transform: translate(2px,-1px); }
+  50% { text-shadow: 3px 3px red, -3px -3px cyan; transform: translate(-1px,1px); }
+  75% { text-shadow: -3px 3px red, 3px -3px cyan; transform: translate(1px,0); }
+  100%{ text-shadow: 3px 0 red, -3px 0 cyan; transform: translate(0); }
+}
+
+#l4 { background: radial-gradient(ellipse at 50% 50%, #0d0221 0%, #000 100%); color: #c8a8ff; font-family: Georgia, serif; text-align: center; padding: 40px; }
+#l4 h1 { font-size: 2rem; letter-spacing: 10px; }
+#l4 p { margin-top: 30px; color: #9966ff; font-size: 0.85rem; letter-spacing: 4px; line-height: 2.5; }
+
+#l5 { background: #1a001a; font-family: "Arial Black", sans-serif; text-align: center; padding: 40px; }
+#l5 h1 { font-size: 4rem; color: white; position: relative; z-index: 1; }
+#l5 p { color: #fff; font-family: monospace; letter-spacing: 3px; font-size: 0.9rem; margin-top: 20px; position: relative; z-index: 1; line-height: 2; }
+
+#l6 { background: #000; color: #00ff00; font-family: "Courier New", monospace; font-size: 0.9rem; text-align: center; }
+.msg6 { position: relative; z-index: 10; background: rgba(0,0,0,.85); padding: 32px 48px; border: 1px solid #00ff00; line-height: 2.2; }
+
+#l7 { background: #080000; color: #cc2200; font-family: Georgia, serif; text-align: center; padding: 40px; animation: fl .12s infinite; }
+#l7 h1 { font-size: 3.5rem; color: #ff0000; text-shadow: 0 0 40px red, 0 0 80px darkred; }
+#l7 p { margin-top: 24px; line-height: 2.2; font-size: 1rem; }
+@keyframes fl { 0%{opacity:1} 48%{opacity:1} 50%{opacity:.88} 52%{opacity:1} 78%{opacity:1} 80%{opacity:.93} 82%{opacity:1} }
+
+#l8 { background: #fff; color: #000; font-family: "Times New Roman", Times, serif; text-align: center; padding: 60px; }
+#l8 h1 { font-size: 1.1rem; font-weight: normal; margin-bottom: 16px; }
+#l8 hr { width: 180px; border: none; border-top: 1px solid #000; margin: 16px auto; }
+#l8 p { font-size: 0.85rem; color: #333; line-height: 2.2; }
+#l8 .tag { margin-top: 48px; font-size: 0.75rem; color: #bbb; }
+
+.hs { position: absolute; border-radius: 50%; cursor: default; }
+</style>
+</head>
+<body>
+
+<div id="wh"><canvas id="wc"></canvas></div>
+
+<div id="l1" class="lw">
+  <h1>benvenuto.</h1>
+  <hr>
+  <p>questa è una pagina.<br>c'è qualcosa di nascosto qui.<br>trovalo.</p>
+  <div class="hs" id="hs1" style="width:28px;height:28px;bottom:13%;left:6%"></div>
+</div>
+
+<div id="l2" class="lw">
+  <canvas id="c2" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas>
+  <div style="position:relative;z-index:1;text-align:center">
+    <h1>// CONNESSIONE STABILITA //</h1>
+    <p>hai trovato il primo strato.<br>ma questo non è ancora il fondo.<br><span style="color:#005533">cerca ancora.</span></p>
+  </div>
+  <div class="hs" id="hs2" style="width:22px;height:22px;top:19%;right:21%"></div>
+</div>
+
+<div id="l3" class="lw">
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,0,85,.04) 0,rgba(255,0,85,.04) 1px,transparent 1px,transparent 4px);pointer-events:none"></div>
+  <div style="position:relative;z-index:1;text-align:center">
+    <h1>GL1TCH</h1>
+    <p>ERRORE NEL SISTEMA<br>ERRORE NEL SISTEMA<br>PROSEGUI SE OSI.</p>
+  </div>
+  <div class="hs" id="hs3" style="width:18px;height:18px;bottom:28%;left:calc(50% + 90px)"></div>
+</div>
+
+<div id="l4" class="lw">
+  <canvas id="c4" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas>
+  <div style="position:relative;z-index:1;text-align:center">
+    <h1>OLTRE</h1>
+    <p>NON SEI PIÙ DOVE PENSI DI ESSERE<br>CONTINUA A SCENDERE</p>
+  </div>
+  <div class="hs" id="hs4" style="width:20px;height:20px;top:72%;right:14%"></div>
+</div>
+
+<div id="l5" class="lw">
+  <canvas id="c5" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas>
+  <h1>∞</h1>
+  <p>LA REALTÀ È MALLEABILE<br>TE NE SEI ACCORTO?</p>
+  <div class="hs" id="hs5" style="width:16px;height:16px;top:38%;left:11%"></div>
+</div>
+
+<div id="l6" class="lw">
+  <canvas id="c6" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas>
+  <div class="msg6">
+    <p>&gt; SOGGETTO RILEVATO</p>
+    <p>&gt; PROFONDITÀ: 6 / 8</p>
+    <p>&gt; STATO MENTALE: COMPROMESSO</p>
+    <p>&gt; CONSIGLIO: FERMARSI.</p>
+    <p>&gt; MA...</p>
+  </div>
+  <div class="hs" id="hs6" style="width:14px;height:14px;bottom:9%;left:29%"></div>
+</div>
+
+<div id="l7" class="lw">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#200000 0%,#000 100%);pointer-events:none"></div>
+  <div style="position:relative;z-index:1;text-align:center">
+    <h1>⚠</h1>
+    <p>SEI QUASI ARRIVATO IN FONDO.<br>ALCUNE COSE NON POSSONO<br>ESSERE DIMENTICATE.</p>
+  </div>
+  <div class="hs" id="hs7" style="width:12px;height:12px;top:24%;right:7%"></div>
+</div>
+
+<div id="l8" class="lw">
+  <h1>sei arrivato in fondo.</h1>
+  <hr>
+  <p>non c'era niente di speciale qui.<br>o forse sì.<br><br>la curiosità ti ha portato fin qui.<br>è già qualcosa.</p>
+  <p class="tag">[ rabbit hole completato — 8/8 ]</p>
+</div>
+
+<script>
+function show(n) {
+  document.querySelectorAll('.lw').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById('l' + n);
+  if (!el) return;
+  el.classList.add('active');
+  if (n === 2) initGrid();
+  if (n === 4) initStars();
+  if (n === 5) initPsych();
+  if (n === 6) initMatrix();
+}
+
+function wormhole(cb) {
+  const wh = document.getElementById('wh');
+  const cv = document.getElementById('wc');
+  const ctx = cv.getContext('2d');
+  wh.style.display = 'block';
+  cv.width = window.innerWidth;
+  cv.height = window.innerHeight;
+  let t = 0, raf;
+  const cx = cv.width / 2, cy = cv.height / 2;
+  function frame() {
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    for (let i = 40; i >= 0; i--) {
+      const prog = ((i / 40) + t * 0.7) % 1;
+      const r = Math.pow(prog, .45) * Math.max(cx, cy) * 1.6;
+      const hue = (t * 180 + i * 12) % 360;
+      const alpha = (1 - prog) * 0.9;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = `hsla(${hue},100%,65%,${alpha})`;
+      ctx.lineWidth = 1.5 + (1 - prog) * 5;
+      ctx.stroke();
+    }
+    for (let a = 0; a < Math.PI * 2; a += Math.PI / 10) {
+      const ang = a + t * 4;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(ang) * cx * 2, cy + Math.sin(ang) * cy * 2);
+      ctx.strokeStyle = `rgba(255,255,255,${0.06 + .04 * Math.sin(t * 6 + a)})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 60 + 40 * Math.sin(t * 8));
+    grd.addColorStop(0, `rgba(255,255,255,${0.3 * (1 - t / 1.8)})`);
+    grd.addColorStop(1, 'transparent');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, cv.width, cv.height);
+    t += 0.016;
+    if (t < 1.8) { raf = requestAnimationFrame(frame); }
+    else { cancelAnimationFrame(raf); wh.style.display = 'none'; cb(); }
+  }
+  frame();
+}
+
+function hs(id, target) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    wormhole(() => show(target));
+  });
+}
+
+function initGrid() {
+  const cv = document.getElementById('c2');
+  if (cv._r) return; cv._r = true;
+  const ctx = cv.getContext('2d'); let t = 0;
+  function f() {
+    cv.width = window.innerWidth; cv.height = window.innerHeight;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.strokeStyle = 'rgba(0,255,136,0.13)'; ctx.lineWidth = 1;
+    const sp = 55, off = (t * 28) % sp;
+    for (let x = off - sp; x < cv.width + sp; x += sp) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, cv.height); ctx.stroke(); }
+    for (let y = off - sp; y < cv.height + sp; y += sp) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(cv.width, y); ctx.stroke(); }
+    t += .016;
+    if (document.getElementById('l2').classList.contains('active')) requestAnimationFrame(f); else cv._r = false;
+  } f();
+}
+
+function initStars() {
+  const cv = document.getElementById('c4');
+  if (cv._r) return; cv._r = true;
+  cv.width = window.innerWidth; cv.height = window.innerHeight;
+  const ctx = cv.getContext('2d');
+  const st = Array.from({length: 220}, () => ({
+    x: Math.random() * cv.width, y: Math.random() * cv.height,
+    r: Math.random() * 1.8, op: Math.random()
+  }));
+  function f() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    st.forEach(s => {
+      s.op = Math.max(0.05, Math.min(1, s.op + (Math.random() - .5) * .04));
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200,168,255,${s.op})`; ctx.fill();
+    });
+    if (document.getElementById('l4').classList.contains('active')) requestAnimationFrame(f); else cv._r = false;
+  } f();
+}
+
+function initPsych() {
+  const cv = document.getElementById('c5');
+  if (cv._r) return; cv._r = true;
+  const ctx = cv.getContext('2d'); let t = 0;
+  function f() {
+    cv.width = window.innerWidth; cv.height = window.innerHeight;
+    const cx = cv.width / 2, cy = cv.height / 2;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    const max = Math.hypot(cx, cy);
+    for (let r = 0; r < max + 12; r += 10) {
+      const hue = (r * 2.5 + t * 120) % 360;
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = `hsl(${hue},100%,55%)`; ctx.lineWidth = 5; ctx.stroke();
+    }
+    t += .016;
+    if (document.getElementById('l5').classList.contains('active')) requestAnimationFrame(f); else cv._r = false;
+  } f();
+}
+
+function initMatrix() {
+  const cv = document.getElementById('c6');
+  if (cv._r) return; cv._r = true;
+  cv.width = window.innerWidth; cv.height = window.innerHeight;
+  const ctx = cv.getContext('2d');
+  const cols = Math.floor(cv.width / 14);
+  const drops = Array.from({length: cols}, () => Math.random() * (cv.height / 14));
+  const ch = 'アイウエオカキクケコ01エラー∑∞∂∇ABCDEF';
+  function f() {
+    ctx.fillStyle = 'rgba(0,0,0,.05)'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = '#00ff00'; ctx.font = '12px Courier New';
+    drops.forEach((d, i) => {
+      const c = ch[Math.floor(Math.random() * ch.length)];
+      ctx.fillText(c, i * 14, d * 14);
+      drops[i] = d * 14 > cv.height && Math.random() > .975 ? 0 : d + 1;
+    });
+    if (document.getElementById('l6').classList.contains('active')) requestAnimationFrame(f); else cv._r = false;
+  } f();
+}
+
+hs('hs1', 2); hs('hs2', 3); hs('hs3', 4);
+hs('hs4', 5); hs('hs5', 6); hs('hs6', 7); hs('hs7', 8);
+show(1);
+</script>
+</body>
+</html>
+```
+
+---
+
+**Struttura finale su GitHub — solo questo:**
+```
+rabbit-hole/
+└── index.html   ← unico file, niente altro
